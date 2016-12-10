@@ -5,20 +5,21 @@
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 
-<body ng-controller="mainCtrl">
-
+<body ng-controller="mainCtrl" ng-keydown="keypress($event)">
 	{{msg}}
 
-	<div ng-repeat="(key,val) in me">
+	<div ng-show="!me.alive" ng-repeat="(key,val) in me">
 		{{key}}: {{val}}
 	</div>
 
-	<button ng-if="!me.userid" ng-click="newplayer()">New Player</button>
-	<button ng-if="me.alive === false" ng-click="newgame(me.userid)">New Game</button>
+	<button ng-show="!me.userid" ng-click="newplayer()">New Player</button>
+	<button ng-show="me.alive === false" ng-click="newgame(me.userid)">New Game</button>
 
-	<div ng-repeat="row in [-1,0,1]" class="row">
-		<div ng-repeat="col in [-1,0,1]" class="col" ng-click="move(row,col)" ng-class="getSquare(row,col).class">
-			{{getSquare(row,col).content}}
+	<div ng-if="me.alive">
+		<div ng-repeat="row in [-1,0,1]" class="row">
+			<div ng-repeat="col in [-1,0,1]" class="col" ng-click="move(row,col)" ng-class="getSquare(row,col).class">
+				{{getSquare(row,col).content}}
+			</div>
 		</div>
 	</div>
 

@@ -30,10 +30,13 @@ app.factory('socket', function ($rootScope) {
   };
 });
 
-app.controller('mainCtrl', function($scope, socket) {
+app.controller('mainCtrl', function($scope, $timeout, socket) {
 	$scope.msg = "";
 	$scope.me = {};
+  $scope.moveDirection = {};
 	$scope.players = {};
+
+  var arrowTimeout = 100;
 
 	$scope.newplayer = function() {
 		socket.emit('newplayer');
@@ -42,6 +45,44 @@ app.controller('mainCtrl', function($scope, socket) {
 	socket.on('newplayer', function(player) {
 		$scope.me = player;
 	});
+
+  $scope.keypress = function(event) {
+    var keycode = event.keyCode;
+    // left arrow 37
+    switch(keycode) {
+      case 37:
+        // alert("left");
+        $scope.moveDirection.col = -1;
+        $timeout(arrowMove, arrowTimeout);
+        break;
+      case 38:
+        // alert("up");
+        $scope.moveDirection.row = -1;
+        $timeout(arrowMove, arrowTimeout);
+        break;
+      case 39:
+        // alert("right");
+        $scope.moveDirection.col = 1;
+        $timeout(arrowMove, arrowTimeout);
+        break;
+      case 40:
+        // alert("down");
+        $scope.moveDirection.row = 1;
+        $timeout(arrowMove, arrowTimeout);
+        break;
+      default:
+        // do nothing
+    }
+  }
+
+  function arrowMove() {
+    var row = $scope.moveDirection.row || 0;
+    var col = $scope.moveDirection.col || 0;
+    if (!row && !col) return;
+    // alert(row + "," + col);
+    $scope.move(row, col);
+    $scope.moveDirection = {};
+  }
 
 	$scope.newgame = function(userid) {
 		socket.emit('newgame', userid);
