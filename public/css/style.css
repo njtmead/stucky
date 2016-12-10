@@ -1,1 +1,1 @@
-.col {	width: 100px;	height: 100px;	color: white;	margin: 5px;	display: inline-block;}.wall {	background: black;}.empty {	background: blue;}.me {	background: green;}.enemy {	background: red;}
+html, body {	text-align: center;}.col {	width: 100px;	height: 100px;	color: white;	margin: 5px;	display: inline-block;}.wall {	background: black;}.empty {	background: blue;}.me {	background: green;}.enemy {	background: red;}
