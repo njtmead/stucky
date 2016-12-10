@@ -1,0 +1,33 @@
+{
+  "name": "stucky",
+  "version": "1.0.0",
+  "description": "quick click realtime game",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.14.0",
+    "shortid": "^2.2.6",
+    "socket.io": "^1.7.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zink02/stucky.git"
+  },
+  "keywords": [
+    "stucky",
+    "game",
+    "socket.io",
+    "realtime",
+    "multiplayer"
+  ],
+  "author": "nick mead",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zink02/stucky/issues"
+  },
+  "homepage": "https://github.com/zink02/stucky#readme"
+}
