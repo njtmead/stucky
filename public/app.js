@@ -48,21 +48,32 @@ app.controller('mainCtrl', function($scope, socket) {
 	}
 
 	$scope.getSquare = function(row,col) {
+    var square = {};
 		var x = $scope.me.x + col;
 		var y = $scope.me.y + row;
-    if (!x || !y || x > 10 || y > 10) return "wall";
+    if (x <= 0 || y <= 0 || x > 10 || y > 10) {
+      square.class = "wall";
+      square.content = "wall";
+      return square;
+    }
 		for (var player in $scope.players) {
 			var thisPlayer = $scope.players[player];
-			if (thisPlayer.level == $scope.me.level && thisPlayer.x == x && thisPlayer.y == y) return thisPlayer.userid;
+			if (thisPlayer.level == $scope.me.level && thisPlayer.x == x && thisPlayer.y == y) {
+        square.content = thisPlayer.userid;
+        square.class = (thisPlayer.userid == $scope.me.userid) ? "me" : "enemy";
+        return square;
+      }
 		}
-		return x + "," + y;
+    square.content = x + "," + y;
+    square.class = "empty";
+    return square;
 	}
 
 	$scope.move = function(row,col) {
     var x = $scope.me.x + col;
     var y = $scope.me.y + row;
-    if (!x || !y || x > 10 || y > 10) return alert("wall");
-    if (!row && !col) return alert("that's you");
+    if (!x || !y || x > 10 || y > 10) return;
+    if (!row && !col) return;
 		var move = {
 			userid: $scope.me.userid,
 			row: row,

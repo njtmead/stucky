@@ -69,7 +69,7 @@ function movePlayer(move){
 		var thisPlayer = players[player];
 		if (thisPlayer.userid == move.userid) continue;
 		if (thisPlayer.level == mover.level && thisPlayer.x == mover.x && thisPlayer.y == mover.y) {
-			thisPlayer.score = 5;
+			thisPlayer.score--;
 			thisPlayer.alive = false;
 			thisPlayer.x = null;
 			thisPlayer.y = null;

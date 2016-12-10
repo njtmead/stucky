@@ -1,7 +1,7 @@
 <!doctype>
 <html ng-app="mainApp">
 <head>
-	<link rel="stylesheet" type="text/css" href="css/style.css">  
+	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 
 <body ng-controller="mainCtrl">
@@ -11,13 +11,13 @@
 	<div ng-repeat="(key,val) in me">
 		{{key}}: {{val}}
 	</div>
-	
+
 	<button ng-if="!me.userid" ng-click="newplayer()">New Player</button>
 	<button ng-if="me.alive === false" ng-click="newgame(me.userid)">New Game</button>
 
 	<div ng-repeat="row in [-1,0,1]" class="row">
-		<div ng-repeat="col in [-1,0,1]" class="col" ng-click="move(row,col)">
-			{{getSquare(row,col)}}
+		<div ng-repeat="col in [-1,0,1]" class="col" ng-click="move(row,col)" ng-class="getSquare(row,col).class">
+			{{getSquare(row,col).content}}
 		</div>
 	</div>
 
