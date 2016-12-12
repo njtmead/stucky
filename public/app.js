@@ -120,10 +120,10 @@ app.controller("mainCtrl", function($scope, $timeout, $localStorage, socket) {
 		var x = $scope.me.x + playerCol;
 		var y = $scope.me.y + playerRow;
 
-		if (x <= 0) x = MAXSQUARES;
-		if (x > MAXSQUARES) x = 1;
-		if (y <= 0) y = MAXSQUARES;
-		if (y > MAXSQUARES) y = 1;
+		if (x <= 0) x += MAXSQUARES;
+		if (x > MAXSQUARES) x -= MAXSQUARES;
+		if (y <= 0) y += MAXSQUARES;
+		if (y > MAXSQUARES) y -= MAXSQUARES;
 
 		for (var player in $scope.players) {
 			var thisPlayer = $scope.players[player];
@@ -145,10 +145,10 @@ app.controller("mainCtrl", function($scope, $timeout, $localStorage, socket) {
 		var x = $scope.me.x + playerCol;
 		var y = $scope.me.y + playerRow;
 
-		if (x <= 0) x = MAXSQUARES;
-		if (x > MAXSQUARES) x = 1;
-		if (y <= 0) y = MAXSQUARES;
-		if (y > MAXSQUARES) y = 1;
+		if (x <= 0) x += MAXSQUARES;
+		if (x > MAXSQUARES) x -= MAXSQUARES;
+		if (y <= 0) y += MAXSQUARES;
+		if (y > MAXSQUARES) y -= MAXSQUARES;
 
 		for (var i in $scope.players) {
 			var thisPlayer = $scope.players[i];
@@ -160,6 +160,7 @@ app.controller("mainCtrl", function($scope, $timeout, $localStorage, socket) {
 	};
 
 	$scope.move = function(row,col) {
+		if (row*row >= 4 || col*col >= 4) return;
 		if (!row && !col) return;
 		var move = {
 			userid: $scope.me.userid,

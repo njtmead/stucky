@@ -1,14 +1,6 @@
 # ideas
-* shields
-  * protected by all angles
-  * lose a shield when you get a kill
-  * player = 3 x 3 squares
-  * red if shield, green if not, score in middle
-  * die if run into enemy shield
 
 # to do
-* save user to local storage
-* no walls, move to other side of map
 * change map size on # of players
 * fb login
 * google login
@@ -19,3 +11,14 @@
   * browser
   * android app
   * ios app
+
+# done
+* save user to local storage
+* no walls, move to other side of map
+* shields
+  * protected by all angles
+  * lose a shield when you get a kill
+  * player = 3 x 3 squares
+  * red if shield, green if not, score in middle
+  * die if run into enemy shield
+  * kill if avoid enemy shield

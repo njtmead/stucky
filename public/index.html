@@ -1,23 +1,24 @@
 <!doctype>
 <html ng-app="mainApp">
 <head>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name = "viewport" content = "user-scalable=no, width=device-width">
+
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 
 <body ng-controller="mainCtrl" ng-keydown="keypress($event)">
 	{{msg}}
 
-	<div ng-show="me.userid" ng-repeat="(key,val) in me">
-		{{key}}: {{val}}
+	<div ng-show="me.userid">
+		user: {{me.userid}} | score: {{me.score}} | {{me.y}} {{me.x}}
 	</div>
 
 	<button ng-show="!me.userid" ng-click="register()">Register</button>
 	<button ng-show="me.alive === false" ng-click="respawn(me.userid)">Respawn</button>
 
 	<div ng-show="me.alive">
-		<div ng-repeat="playerRow in [-1,0,1]">
-			<div ng-repeat="playerCol in [-1,0,1]" class="player" ng-click="move(playerRow,playerCol)" ng-class="getSquare(playerRow,playerCol).class">
+		<div ng-repeat="playerRow in [-2,-1,0,1,2]">
+			<div ng-repeat="playerCol in [-2,-1,0,1,2]" class="player" ng-click="move(playerRow,playerCol)" ng-class="getSquare(playerRow,playerCol).class">
 				<div ng-repeat="shieldRow in [-1,0,1]">
 					<div ng-repeat="shieldCol in [-1,0,1]" class="shield" ng-class="getShield(playerRow,playerCol,shieldRow,shieldCol)">
 					</div>
