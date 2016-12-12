@@ -8,7 +8,7 @@ var MAXSQUARES = 10;
 var players = {};
 
 app.use(express.static(__dirname + "/public"));
-server.listen(8000, function() {
+server.listen(3000, function() {
 	console.log("server up and running at 8000 port");
 });
 
