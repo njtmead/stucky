@@ -33,12 +33,13 @@ app.factory("socket", function ($rootScope) {
 app.controller("mainCtrl", function($scope, $timeout, $localStorage, socket) {
 	$scope.msg = "";
 	$scope.me = {};
-	$scope.frozen = 0;
+	$scope.frozen = 1001;
 	$scope.moveDirection = {};
 	$scope.players = {};
 	var MAXSQUARES = 10;
 
 	var arrowTimeout = 100;
+	var lastMove = 0;
 
 	loadUser();
 
@@ -161,7 +162,7 @@ app.controller("mainCtrl", function($scope, $timeout, $localStorage, socket) {
 	};
 
 	$scope.move = function(row,col) {
-		if ($scope.frozen > 0) return;
+		if ($scope.frozen < 1000) return;
 		if (row*row >= 4 || col*col >= 4) return;
 		if (!row && !col) return;
 		var move = {
@@ -178,15 +179,15 @@ app.controller("mainCtrl", function($scope, $timeout, $localStorage, socket) {
 			$scope.me = player;
 			if (!player.alive) alert("you died");
 			if (player.alive) {
-				$scope.frozen = 50 + 10*$scope.me.score;
+				lastMove = new Date();
 				unfreeze();
 			}
 		}
 	});
 
 	function unfreeze() {
-		if ($scope.frozen > 0) {
-			$scope.frozen--;
+		$scope.frozen = new Date() - lastMove;
+		if ($scope.frozen < 1000) {
 			$timeout(unfreeze, 10);
 		}
 	}
