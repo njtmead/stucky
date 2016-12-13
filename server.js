@@ -5,11 +5,12 @@ var io = require("socket.io")(server);
 var shortid = require("shortid");
 
 var MAXSQUARES = 10;
+var PORT = 3000;
 var players = {};
 
 app.use(express.static(__dirname + "/public"));
-server.listen(3000, function() {
-	console.log("server up and running at 8000 port");
+server.listen(PORT, function() {
+	console.log("server running on port " + PORT);
 });
 
 io.on("connection", function(socket) {

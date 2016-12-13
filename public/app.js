@@ -33,6 +33,7 @@ app.factory("socket", function ($rootScope) {
 app.controller("mainCtrl", function($scope, $timeout, $localStorage, socket) {
 	$scope.msg = "";
 	$scope.me = {};
+	$scope.frozen = 0;
 	$scope.moveDirection = {};
 	$scope.players = {};
 	var MAXSQUARES = 10;
@@ -153,13 +154,14 @@ app.controller("mainCtrl", function($scope, $timeout, $localStorage, socket) {
 		for (var i in $scope.players) {
 			var thisPlayer = $scope.players[i];
 			if (thisPlayer.level == $scope.me.level && thisPlayer.x == x && thisPlayer.y == y) {
-				return thisPlayer.shields[shieldRow + "," + shieldCol] ? "shield red" : "shield green";
+				return thisPlayer.shields[shieldRow + "," + shieldCol] ? "shield red" : "shield black";
 			}
 		}
 		return "shield";
 	};
 
 	$scope.move = function(row,col) {
+		if ($scope.frozen > 0) return;
 		if (row*row >= 4 || col*col >= 4) return;
 		if (!row && !col) return;
 		var move = {
@@ -175,8 +177,19 @@ app.controller("mainCtrl", function($scope, $timeout, $localStorage, socket) {
 		if (player.userid == $scope.me.userid) {
 			$scope.me = player;
 			if (!player.alive) alert("you died");
+			if (player.alive) {
+				$scope.frozen = 50 + 10*$scope.me.score;
+				unfreeze();
+			}
 		}
 	});
+
+	function unfreeze() {
+		if ($scope.frozen > 0) {
+			$scope.frozen--;
+			$timeout(unfreeze, 10);
+		}
+	}
 
 	socket.on("msg", function(msg) {
 		$scope.msg = msg;
