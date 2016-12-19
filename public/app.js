@@ -119,6 +119,8 @@ app.controller("mainCtrl", function($scope, $timeout, $localStorage, socket) {
 	$scope.getSquare = function(playerRow,playerCol) {
 		var square = {};
 
+		if (playerRow*playerRow <= 1 && playerCol*playerCol <= 1) square.class = "player canmove";
+
 		var x = $scope.me.x + playerCol;
 		var y = $scope.me.y + playerRow;
 
@@ -127,22 +129,22 @@ app.controller("mainCtrl", function($scope, $timeout, $localStorage, socket) {
 		if (y <= 0) y += MAXSQUARES;
 		if (y > MAXSQUARES) y -= MAXSQUARES;
 
+
 		for (var player in $scope.players) {
 			var thisPlayer = $scope.players[player];
 			if (thisPlayer.level == $scope.me.level && thisPlayer.x == x && thisPlayer.y == y) {
 				square.isPlayer = true;
 				square.content = thisPlayer.score;
-				square.class = (thisPlayer.userid == $scope.me.userid) ? "me" : "enemy";
+				// square.class = (thisPlayer.userid == $scope.me.userid) ? "me" : "enemy";
 				return square;
 			}
 		}
 		square.content = x + "," + y;
-		square.class = "empty";
+		// square.class = "empty";
 		return square;
 	};
 
 	$scope.getShield = function(playerRow, playerCol, shieldRow, shieldCol) {
-		if (shieldRow == 0 && shieldCol == 0) return "shield";
 
 		var x = $scope.me.x + playerCol;
 		var y = $scope.me.y + playerRow;
@@ -155,6 +157,7 @@ app.controller("mainCtrl", function($scope, $timeout, $localStorage, socket) {
 		for (var i in $scope.players) {
 			var thisPlayer = $scope.players[i];
 			if (thisPlayer.level == $scope.me.level && thisPlayer.x == x && thisPlayer.y == y) {
+				if (shieldRow == 0 && shieldCol == 0) return "shield yellow";
 				return thisPlayer.shields[shieldRow + "," + shieldCol] ? "shield red" : "shield black";
 			}
 		}
